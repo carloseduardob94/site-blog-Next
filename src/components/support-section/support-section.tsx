@@ -1,16 +1,11 @@
 import { HeartHandshake, PaintbrushVertical, Store } from "lucide-react";
-import { PT_Sans_Caption } from "next/font/google";
 
-const ptSansCapition = PT_Sans_Caption({
-  weight: '700',
-  subsets: ['latin'],
-})
 
 export function SupportSection() {
   return (
     <section className=" pb-8 pt-10 bg-gradient-to-r from-gray-500 to-gray-700">
       <div className="container flex flex-col items-center gap-12">
-        <h2 className={`${ptSansCapition.className} text-balance text-center text-heading-xl text-gray-100`}>Sua loja de afiliados, simples, do jeito que deveria ser</h2>
+        <h2 className="font-sans text-balance text-center text-heading-xl text-gray-100">Sua loja de afiliados, simples, do jeito que deveria ser</h2>
 
         <div className="grid gap-6 md:grid-cols-3">
 
