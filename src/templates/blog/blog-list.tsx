@@ -3,13 +3,18 @@ import { useRouter } from "next/router";
 import { PostCard } from "./components/post-card";
 import { PostGridCard } from "./components/post-grid-card";
 import { allPosts } from "contentlayer/generated";
+import { Inbox } from "lucide-react";
 
 export function BlogList() {
   const router = useRouter();
   const query = router.query.q as string
   const pageTitle = query ? `Resultados para "${query}"` : "Dicas e estratégias para impulsionar o seu negócio"
 
-  const post = allPosts;
+  const post = query
+    ? allPosts.filter((post) => post.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+    : allPosts;
+
+  const hasPosts = post.length > 0;
 
   return (
     <div className="flex flex-col py-24 flex-grow h-full">
@@ -25,23 +30,34 @@ export function BlogList() {
       </header>
       {/* SEARCH */}
       {/* LISTAGEM DE POSTS */}
-      <PostGridCard>
-        {post.map((post) => (
-          <PostCard
-            key={post._id}
-            title={post.title}
-            description={post.description}
-            image={post.image}
-            date={new Date(post.date).toLocaleDateString("pt-BR")}
-            author={{
-              name: post.author.name,
-              avatar: post.author.avatar
-            }}
-            slug={post.slug}
-          />
-        ))}
 
-      </PostGridCard>
+      {hasPosts ? (
+        <PostGridCard>
+          {post.map((post) => (
+            <PostCard
+              key={post._id}
+              title={post.title}
+              description={post.description}
+              image={post.image}
+              date={new Date(post.date).toLocaleDateString("pt-BR")}
+              author={{
+                name: post.author.name,
+                avatar: post.author.avatar
+              }}
+              slug={post.slug}
+            />
+          ))}
+
+        </PostGridCard>) : (
+        <div className="container px-8">
+          <div className="text-gray-100 text-center flex flex-col items-center justify-center gap-6 border-dashed border-2 border-gray-300 p-8 md:p-12 rounded-lg">
+            <Inbox className="h-12 w-12 text-cyan-100" />
+            <p >Nenhum post encontrado.</p>
+          </div>
+
+        </div>
+      )}
+
     </div>
   )
 }

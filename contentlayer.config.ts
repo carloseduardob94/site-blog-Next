@@ -16,7 +16,7 @@ export const Post = defineDocumentType(() => ({
     date: { type: 'date', required: true },
     description: { type: 'string', required: true },
     image: { type: 'string', required: true },
-    author: { type: 'nested', of: Author }
+    author: { type: 'nested', of: Author, required: true }
   },
   computedFields: {
     slug: {
