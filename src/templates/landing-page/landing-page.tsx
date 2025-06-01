@@ -1,4 +1,4 @@
-import { CallToAction, CustomerHistorySection, FeatureSection, HeroSection, SupportSection } from "@/templates/landing-page/section";
+import { CustomerHistorySection, FeatureSection, HeroSection, SupportSection } from "@/templates/landing-page/section";
 
 export function LandingPage() {
   return (
@@ -7,7 +7,6 @@ export function LandingPage() {
       <FeatureSection />
       <SupportSection />
       <CustomerHistorySection />
-      <CallToAction />
     </article>
   )
 }
