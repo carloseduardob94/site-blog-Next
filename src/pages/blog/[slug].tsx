@@ -12,6 +12,8 @@ import {
 import { allPosts } from "contentlayer/generated";
 import { Avatar } from "@/components/avatar";
 import { Markdown } from "@/components/markdown";
+import { Button } from "@/components/ui/button";
+import { useShare } from "@/hooks/use-share";
 
 
 export default function PostPage() {
@@ -20,9 +22,16 @@ export default function PostPage() {
   const post = allPosts.find((post) => post.slug.toLowerCase() === slug)
 
   const publishedDate = new Date(post?.date ?? '').toLocaleDateString('pt-BR')
+  const postUrl = `https://site.set/blog/${slug}`
+
+  const { shareButtons } = useShare({
+    url: postUrl,
+    title: post?.title,
+    text: post?.description
+  })
 
   return (
-    <main className="mt-32">
+    <main className="container mt-32">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -37,7 +46,7 @@ export default function PostPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 lg:gap-12 mt-8">
         <article className="bg-gray-600 rounded-lg overflow-hidden border-[1px] border-gray-400">
           <figure className="relative aspect-[16/10] w-full overflow-hidden rounded-lg">
             <Image src={post?.image ?? ''} alt={post?.title ?? ''} fill className="object-cover" />
@@ -62,6 +71,27 @@ export default function PostPage() {
             <Markdown content={post?.body.raw ?? ''} />
           </div>
         </article>
+
+        <aside className="space-y-6 mb-6">
+          <div className="rounded-lg bg-gray-700">
+            <h2 className="mb-4 text-heading-xs text-gray-100">Compartilhar</h2>
+
+            <div className="space-y-3">
+              {shareButtons.map((provider) => (
+                <Button
+                  key={provider.provider}
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  onClick={() => provider.action()}
+                >
+                  {provider.icon}
+                  {provider.name}
+                </Button>
+              ))}
+
+            </div>
+          </div>
+        </aside>
       </div>
     </main>
   )
