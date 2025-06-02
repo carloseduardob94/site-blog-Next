@@ -1,20 +1,21 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { useShare } from "@/hooks/use-share";
-import { allPosts } from "contentlayer/generated";
+import { Post } from "contentlayer/generated";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
 import Image from "next/image";
 import { Avatar } from "@/components/avatar";
 import { Button } from "@/components/ui/button";
 import { Markdown } from "@/components/markdown";
 
-export function PostPage() {
-  const router = useRouter();
-  const { slug } = router.query;
-  const post = allPosts.find((post) => post.slug.toLowerCase() === slug)
+export type PostPageProps = {
+  post: Post;
+}
+
+export function PostPage({ post }: PostPageProps) {
 
   const publishedDate = new Date(post?.date ?? '').toLocaleDateString('pt-BR')
-  const postUrl = `https://site.set/blog/${slug}`
+  const postUrl = `https://site.set/blog/${post.slug}`
 
   const { shareButtons } = useShare({
     url: postUrl,
