@@ -30,7 +30,6 @@ This project demonstrates practical usage of static content (Markdown), traditio
 ## 📸 Preview
 
 ![Site Preview](./public/preview.gif)  
-🔗 **Live demo**: [site-blog-next-git-main-carloseduardob94s-projects.vercel.app](site-blog-next-git-main-carloseduardob94s-projects.vercel.app)
 
 ---
 
